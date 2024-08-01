@@ -23,7 +23,7 @@ void TransitiveClousre(vector<vector<int>> D,int n){
         for(int i=0;i<n;i++){
 
             for(int j=0;j<n;j++){
-                if( D[i][j] || D[i][k] + D[k][j] ){
+                if( D[i][j] || ( D[i][k] && D[k][j] ) ){
                     D[i][j] = 1;
                 }
             }
