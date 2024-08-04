@@ -18,17 +18,19 @@ int main()
 }
 
 void Floyds(vector<vector<int>> D,int n){
-    for(int k=0;k<n;k++){
 
+    for(int k=0;k<n;k++){
+        cout<<"\nD "<<k<<" : \n";
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 D[i][j] = min(D[i][j], D[i][k] + D[k][j] );
             }
         }
+        displayGraph(n,D);
     }
 
-    cout<<"After Applying Floyds Algorithm : \n";
-    cout<<"ALL Pair SHORTEST PATH : \n";
+    cout<<"\nAfter Applying Floyds Algorithm : \n";
+    cout<<"\nALL Pair SHORTEST PATH : \n";
 
     displayGraph(n,D);
 }
@@ -54,8 +56,6 @@ vector<vector<int>> getGraph(int &n)
                 }
             }
         }
-
-        //
         return G;
 }
 
