@@ -54,7 +54,7 @@ void dfs(int n,const vector<vector<int>> &G,int source,vector<int> &visited,stac
 	visited[source] = 1;
         for(int i=0;i<n;i++)
         {
-                if(visited[i] == 0 and G[source][i] != 0 )
+                if(visited[i] == 0 && G[source][i] != 0 )
                 {
                         dfs(n,G,i,visited,st);
                 }
