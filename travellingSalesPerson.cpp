@@ -4,13 +4,16 @@
 using namespace std;
 
 vector<vector<int>> getGraph(int &n);
-void rPermutation(vector<int> &nums,int start,int end,vector<vector<int>> &ans);
+void rPermutation(vector<int> &nums,int start,int end,vector<vector<int>> &ans,int source=0);
 int nearestNeighbourApprox(vector<vector<int>> G,int n,int source=0);
 
 int main()
 {
 	int noVertices;
 	vector<vector<int>> CostMat = getGraph(noVertices);
+	int source;
+	cout<<"Enter the source Vertex : ";
+	cin>>source;
 
 	vector<int> V (noVertices,0);
 	for(int i=0;i<noVertices;i++)
@@ -18,9 +21,9 @@ int main()
 		V[i] = i;
 	}
 
-	// Storing all possible Permutatoins
+	// Storing all possible Permutatoins starting with given vertex
 	vector<vector<int>> ans;
-	rPermutation(V,0,noVertices-1,ans);
+	rPermutation(V,0,noVertices-1,ans,source);
 	
 	
 	int noOfPermutations = ans.size();
@@ -92,7 +95,7 @@ int main()
 	cout<<" = "<<optimalCost<<"\n";
 	cout<<"\n";
 
-	int approxCost = nearestNeighbourApprox(CostMat,noVertices);
+	int approxCost = nearestNeighbourApprox(CostMat,noVertices,source);
 
 	if(approxCost == -1){
 		cout<<"Can not calculate approximation with nearestNeighbour approach from this source \n";
@@ -105,19 +108,19 @@ int main()
 	cout<<"Error in approximation = "<<err<<" % \n";
 }
 
-void rPermutation(vector<int> &nums,int start,int end,vector<vector<int>> &ans)
+void rPermutation(vector<int> &nums,int start,int end,vector<vector<int>> &ans,int source)
 {
 	if(start > end)
 	{
-		if(nums[0] == 0)
+		if(nums[0] == source)
 		{
-			nums.push_back(0);
+			nums.push_back(source);
 			ans.push_back(nums);
-			//for(auto &x : nums)
-                        //{
-                                //cout<<x<<" ";
-                        //}
-                        //cout<<"\n";
+			// for(auto &x : nums)
+			// {
+			// 		cout<<x<<" ";
+			// }
+			// cout<<"\n";
 			nums.pop_back();
 		}
 	}
@@ -126,8 +129,8 @@ void rPermutation(vector<int> &nums,int start,int end,vector<vector<int>> &ans)
 		for(int i=start;i<=end;i++)
         	{
                 	swap(nums[start],nums[i]);
-                	rPermutation(nums,start+1,end,ans);
-			swap(nums[start],nums[i]);
+                	rPermutation(nums,start+1,end,ans,source);
+					swap(nums[start],nums[i]);
         	}
 	}
 }
