@@ -37,14 +37,15 @@ vector<int> topoLogicalSorting(const int &n,const vector<vector<int>> &G)
 	{
 		if(visited[i]==0)
 		{
-			dfs(n,G,i,visited,st);
-			while(!st.empty())
-			{
-				ans.push_back(st.top());
-				st.pop();
-			}
+                        dfs(n,G,i,visited,st);
 		}
 	}
+
+        while(!st.empty())
+        {
+                ans.push_back(st.top());
+                st.pop();
+        }
 
         return ans;
 }
